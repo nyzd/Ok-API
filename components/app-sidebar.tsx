@@ -16,8 +16,9 @@ import { Dialog, DialogContent, DialogDescription, DialogHeader, DialogTitle, Di
 import { Button } from "./ui/button"
 import { Input } from "./ui/input"
 import { redirect } from "next/navigation"
+import { ReactElement } from "react"
 
-function ImportFromUrlDialog({ children }: { children: any }) {
+function ImportFromUrlDialog({ children }: { children: ReactElement }) {
     return (
         <Dialog>
             <DialogTrigger asChild>
@@ -32,7 +33,7 @@ function ImportFromUrlDialog({ children }: { children: any }) {
                 </DialogHeader>
                 <form className="flex items-center space-x-2" action={async (formdata) => {
                     "use server";
-                    const url = formdata.get("url_inp")?.toString()!
+                    const url = formdata.get("url_inp")?.toString() || "Bruh"
                     redirect(`/tests/${encodeURIComponent(url)}`)
                 }}>
                     <div className="grid flex-1 gap-2">

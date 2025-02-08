@@ -7,8 +7,10 @@ import { Textarea } from "@/components/ui/textarea";
 import { AlertCircle, Loader2 } from "lucide-react";
 import { useState } from "react";
 
+export type RequestMethod = "get" | "post" | "put" | "delete";
+
 interface LocalTestInfo {
-    method: "get" | "post" | "put" | "delete";
+    method: RequestMethod;
     url: string;
     title: string;
     description: string;
@@ -22,7 +24,7 @@ interface ResponseError {
 export default function LocalTest(info: LocalTestInfo) {
     const [buttonLoading, setButtonLoading] = useState<boolean>(false);
     const [body, setBody] = useState<string>("");
-    const [response, setResponse] = useState<any>(null);
+    const [response, setResponse] = useState<object | null>(null);
     const [error, setError] = useState<ResponseError | null>(null);
 
     const onClick = async () => {

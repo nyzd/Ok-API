@@ -1,22 +1,19 @@
 import { Accordion, AccordionContent, AccordionItem, AccordionTrigger } from "@/components/ui/accordion";
-import { Badge } from "@/components/ui/badge";
-import { Button } from "@/components/ui/button";
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
-import { Textarea } from "@/components/ui/textarea";
-import LocalTest from "./localTest";
+import LocalTest, { RequestMethod } from "./localTest";
 
-function TagItem({ current, methods, url }: { current: string, methods: any, url: string }) {
+function TagItem({ current, methods, url }: { current: string, methods: object, url: string }) {
     return (
         <Accordion type="multiple">
             <AccordionItem value={`item-${current}`}>
                 <AccordionTrigger>{current}</AccordionTrigger>
                 <AccordionContent className="flex flex-col gap-2">
-                    {Object.entries(methods).map(([method, detail]: [string, any]) =>
+                    {Object.entries(methods).map(([method, detail]: [string, { description: string }]) =>
                         <LocalTest
                             title={method}
                             key={method}
                             url={url}
-                            method={method as any}
+                            method={method as RequestMethod}
                             description={detail.description} />
                     )}
                 </AccordionContent>
@@ -26,9 +23,18 @@ function TagItem({ current, methods, url }: { current: string, methods: any, url
 
 }
 
+interface OpenApi {
+    servers: { url: string }[];
+    info: {
+        title: string;
+        version: string;
+    };
+    paths: [string: object]
+}
+
 export default async function TestUrlPage({ params: { url } }: { params: { url: string } }) {
     const resp = await fetch(decodeURIComponent(url));
-    const data: any = await resp.json();
+    const data: OpenApi = await resp.json();
     return (
         <>
             <div className="flex flex-row justify-between">
@@ -38,8 +44,8 @@ export default async function TestUrlPage({ params: { url } }: { params: { url: 
                         <SelectValue placeholder="Server" />
                     </SelectTrigger>
                     <SelectContent>
-                        {data.servers.map((server: { url: string }) =>
-                            <SelectItem value={server.url}>{server.url}</SelectItem>
+                        {data.servers.map((server: { url: string }, i) =>
+                            <SelectItem key={i} value={server.url}>{server.url}</SelectItem>
                         )}
                     </SelectContent>
                 </Select>
