@@ -32,7 +32,8 @@ interface OpenApi {
     paths: [string: object]
 }
 
-export default async function TestUrlPage({ params: { url } }: { params: { url: string } }) {
+export default async function TestUrlPage({ params }: { params: Promise<{ url: string }> }) {
+    const { url } = await params;
     const resp = await fetch(decodeURIComponent(url));
     const data: OpenApi = await resp.json();
     return (
