@@ -33,6 +33,7 @@ async function test_router(
     info: { url: string, router: string, method: RequestMethod },
     detail: object
 ): Promise<TestResult> {
+    console.log(detail)
     const resp = await fetch(info.url + info.router, {
         method: info.method,
     });
@@ -50,7 +51,7 @@ async function test_router(
 }
 
 export async function test_api(paths: [string: object], server_url: string): Promise<TestResult[]> {
-    let result: TestResult[] = [];
+    const result: TestResult[] = [];
 
     for (const [route, methods] of Object.entries(paths)) {
         for (const [method, detail] of Object.entries(methods)) {

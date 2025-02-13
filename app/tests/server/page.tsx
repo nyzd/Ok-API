@@ -23,17 +23,20 @@ export default async function NewTest() {
                     const token = formdata.get("token")?.toString() || "";
 
                     if (testName === "") {
-                        const randomName = [0, 0, 0, 0, 0, 0]
-                            .map(_ => String.fromCharCode(Math.floor(Math.random() * (122 - 97) + 97)))
-                            .join("")
 
+                        let randomName = "";
+                        for (let i = 0; i <= 6; i++) {
+                            randomName +=
+                                String.fromCharCode(Math.floor(Math.random() * (122 - 97) + 97));
+                        }
                         testName = randomName;
                     }
 
                     await new_test(testName, { auth: token, name: testName, open_api_file_url: fileUrl })
 
                     redirect(`/tests/server/${testName}`)
-                }}>
+                }
+                }>
                     <Input placeholder="Test name" name="test_name" />
                     <Input placeholder="open-api.json file URL" name="file_url" />
                     <Input placeholder="Auth token" name="token" />

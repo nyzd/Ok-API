@@ -9,9 +9,9 @@ interface Test {
 }
 
 export async function new_test(name: string, value: Test) {
-    await redis.set(name as any, JSON.stringify(value as any));
+    await redis.set(name, JSON.stringify(value));
 }
 
 export async function get_test(name: string): Promise<Test> {
-    return JSON.parse(await redis.get(name as any) || '{}') as Test;
+    return JSON.parse(await redis.get(name) || '{}') as Test;
 }

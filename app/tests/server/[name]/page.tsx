@@ -1,6 +1,5 @@
 import { get_test } from "@/app/lib/db";
 import { OpenApi, test_api } from "@/app/lib/test";
-import { Suspense } from "react";
 
 async function TestRouters({ paths, server_url }: { paths: [string: object], server_url: string }) {
     const result = await test_api(paths, server_url);
