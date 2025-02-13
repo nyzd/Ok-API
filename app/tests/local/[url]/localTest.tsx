@@ -1,4 +1,5 @@
 "use client";
+import { LocalTestInfo, ResponseError } from "@/app/lib/test";
 import { Alert, AlertDescription, AlertTitle } from "@/components/ui/alert";
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
@@ -7,19 +8,6 @@ import { Textarea } from "@/components/ui/textarea";
 import { AlertCircle, Loader2 } from "lucide-react";
 import { useState } from "react";
 
-export type RequestMethod = "get" | "post" | "put" | "delete";
-
-interface LocalTestInfo {
-    method: RequestMethod;
-    url: string;
-    title: string;
-    description: string;
-}
-
-interface ResponseError {
-    status: number;
-    message: string;
-}
 
 export default function LocalTest(info: LocalTestInfo) {
     const [buttonLoading, setButtonLoading] = useState<boolean>(false);

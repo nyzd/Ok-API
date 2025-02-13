@@ -1,6 +1,7 @@
 import { Accordion, AccordionContent, AccordionItem, AccordionTrigger } from "@/components/ui/accordion";
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
-import LocalTest, { RequestMethod } from "./localTest";
+import LocalTest from "./localTest";
+import { OpenApi, RequestMethod } from "@/app/lib/test";
 
 function TagItem({ current, methods, url }: { current: string, methods: object, url: string }) {
     return (
@@ -22,16 +23,6 @@ function TagItem({ current, methods, url }: { current: string, methods: object, 
     )
 
 }
-
-interface OpenApi {
-    servers: { url: string }[];
-    info: {
-        title: string;
-        version: string;
-    };
-    paths: [string: object]
-}
-
 export default async function TestUrlPage({ params }: { params: Promise<{ url: string }> }) {
     const { url } = await params;
     const resp = await fetch(decodeURIComponent(url));

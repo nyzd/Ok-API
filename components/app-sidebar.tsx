@@ -11,14 +11,15 @@ import {
     SidebarMenuButton,
     SidebarMenuItem,
 } from "@/components/ui/sidebar"
-import { Import, Plus } from "lucide-react"
+import { Import, Plus, Server } from "lucide-react"
 import { Dialog, DialogContent, DialogDescription, DialogHeader, DialogTitle, DialogTrigger } from "./ui/dialog"
 import { Button } from "./ui/button"
 import { Input } from "./ui/input"
 import { redirect } from "next/navigation"
 import { ReactElement } from "react"
+import Link from "next/link"
 
-function ImportFromUrlDialog({ children }: { children: ReactElement }) {
+function LocalTestDialog({ children }: { children: ReactElement }) {
     return (
         <Dialog>
             <DialogTrigger asChild>
@@ -66,18 +67,27 @@ export function AppSidebar() {
                     </SidebarGroupAction>
                     <SidebarGroupContent>
                         <SidebarMenu>
-                            <ImportFromUrlDialog>
+                            <LocalTestDialog>
                                 <SidebarMenuItem>
                                     <SidebarMenuButton asChild>
                                         <div className="cursor-pointer">
                                             <Import />
-                                            Import from URL
+                                            Local test
                                         </div>
                                     </SidebarMenuButton>
                                 </SidebarMenuItem>
-                            </ImportFromUrlDialog>
+                            </LocalTestDialog>
+                            <SidebarMenuItem>
+                                <Link href="/tests/server">
+                                    <SidebarMenuButton asChild>
+                                        <div className="cursor-pointer">
+                                            <Server />
+                                            Start a new server-side test
+                                        </div>
+                                    </SidebarMenuButton>
+                                </Link>
+                            </SidebarMenuItem>
                         </SidebarMenu>
-
                     </SidebarGroupContent>
                 </SidebarGroup>
                 <SidebarGroup />
