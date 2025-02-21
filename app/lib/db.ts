@@ -6,6 +6,7 @@ interface Test {
     name: string;
     open_api_file_url: string;
     auth: string;
+    alternative_api_url: string;
 }
 
 export async function new_test(name: string, value: Test) {

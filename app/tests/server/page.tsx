@@ -21,6 +21,7 @@ export default async function NewTest() {
                     let testName = formdata.get("test_name")?.toString() || "";
                     const fileUrl = formdata.get("file_url")?.toString() || "";
                     const token = formdata.get("token")?.toString() || "";
+                    const altUrl = formdata.get("alt")?.toString() || "";
 
                     if (testName === "") {
 
@@ -32,7 +33,7 @@ export default async function NewTest() {
                         testName = randomName;
                     }
 
-                    await new_test(testName, { auth: token, name: testName, open_api_file_url: fileUrl })
+                    await new_test(testName, { auth: token, name: testName, open_api_file_url: fileUrl, alternative_api_url: altUrl })
 
                     redirect(`/tests/server/${testName}`)
                 }
@@ -40,6 +41,7 @@ export default async function NewTest() {
                     <Input placeholder="Test name" name="test_name" />
                     <Input placeholder="open-api.json file URL" name="file_url" />
                     <Input placeholder="Auth token" name="token" />
+                    <Input placeholder="Alternative API server url (optional)" name="alt" />
 
                     <Button>
                         Create
