@@ -3,7 +3,7 @@ import { test_api } from "@/app/lib/test";
 import { Badge } from "@/components/ui/badge";
 import { validate, } from "@apidevtools/swagger-parser";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
-import { OpenAPI, OpenAPIV3 } from "openapi-types";
+import { OpenAPIV3 } from "openapi-types";
 
 async function TestRouters({ paths, server_url, token }: { paths: OpenAPIV3.PathsObject, server_url: string, token: string }) {
     const result = await test_api(paths, server_url, token);
@@ -41,7 +41,7 @@ export default async function Page({ params }: { params: Promise<{ name: string 
         <>
             <h1>{test.name}</h1>
             <TestRouters
-                paths={v.paths as any}
+                paths={v.paths}
                 server_url={test.alternative_api_url ? test.alternative_api_url : v.servers && v.servers[0].url || ""}
                 token={test.auth} />
         </>
